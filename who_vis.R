@@ -6,6 +6,8 @@ library(packcircles)
 library(ggtext)
 library(systemfonts)
 library(png)
+library(geomtextpath)
+
 # load data ----
 
 # path to excel file
@@ -266,11 +268,12 @@ clr_sex <- c('#C26624', '#188C99')
 clr_age <- c('#7bb3b9','#0072a3','#052879')
 #clr_income <- c('#FFAB0F','#ea5460','#843b7c','#002b54')
 clr_income <- c('#ffab0f', '#e85a3b','#aa1750','#56004D')
-clr_background <- c('grey90')
+clr_background <- c('white') # c('grey90') # grey for testing (so fig background is visible)
 
 clr_title <- c('#0D0D0D')
 clr_text <- c('#262626')
 clr_text_light <- c('#4D4D4D')
+clr_text_extralight <- c('#666666')
 
 # plot ---
 plot_width <- 8
@@ -291,6 +294,11 @@ y_start <- r_global*1.2 # plot upper y limit
 y_pwd <- (r_global * -1.2) # y shift for PWD circle
 x_circ_shift <- -1 * r_global/1.75 # how much to shift both circles laterally
 
+
+y_lim <- c(r_global * -4.2, y_start + 10)
+x_lim <- c(x_start, x_stop)
+y_buff <- 7
+x_buff <- 10
 # y coordinates for demographic plots
 y_shift_sex <- y_pwd - y_step * 2.25
 y_shift_age <- y_pwd - y_step * 3.25
@@ -407,16 +415,16 @@ ggplot() +
   
   # settings for x and y axes
   scale_x_continuous(
-    limits = c(x_start, x_stop),
+    limits = x_lim,
     breaks = c(),
     labels = '',
-    expand = c(0, 0)
+    expand = c(0, x_buff)
   ) + 
   scale_y_continuous(
-    limits = c(r_global * -4.25, y_start),
+    limits = y_lim,
     breaks = c(),
     labels = '',
-    expand = c(0, 10)
+    expand = c(0, y_buff)
   ) + 
   
   # remove unnecessary plot elements
@@ -444,7 +452,7 @@ ggplot() +
   # title
   who_textbox(
       x = x_start_text,
-      y = y_start - 5,
+      y = y_start - 3,
       label = paste0('<b style = "color:', clr_title, '; font-size:28pt;">',
                      'Anyone can have a disability',
                      '</b>'),
@@ -562,8 +570,38 @@ ggplot() +
     ymin = y_shift_source - 1,
     ymax = y_shift_source + 14,
     xmin = 87,
-    xmax = 102)
+    xmax = 102) +
   
-ggsave(file.path('vis','vfsg_who_gms.png'), width = 6.5, height = 6.5*1.75, units = "in", dpi = 600)
+  # label global population circle
+  geom_textcurve(data = tibble(
+    x = x_start_text + 10, xend = x_start_text + r_global - 5, y = 34, yend = 53
+    ),
+    aes(x, y, xend = xend, yend = yend), 
+    curvature = -0.2, 
+    label = 'global population',
+    family = 'Atkinson Hyperlegible', 
+    colour = clr_text_extralight,
+    size = 5
+  ) +
+  
+  # label pwd population circle
+  geom_textcurve(data = tibble(
+    x =  60, xend = 105, y = y_pwd + 9, yend = y_pwd + 2
+  ),
+  aes(x, y, xend = xend, yend = yend), 
+  curvature = -0.75, 
+  ncp = 20,
+  label = 'all people with disabilities',
+  family = 'Atkinson Hyperlegible', 
+  colour = clr_pwd,
+  size = 5
+  )
+
+# save ---  
+ggsave(file.path('vis','vfsg_who_gms.png'), 
+       width = 6.5, 
+       height = 6.5*(y_lim[2] - y_lim[1] + y_buff*2)/(x_lim[2] - x_lim[1] + x_buff*2), 
+       units = "in", dpi = 1000)
+
 
 
