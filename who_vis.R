@@ -5,7 +5,7 @@ library(readxl)
 library(packcircles)
 library(ggtext)
 library(systemfonts)
-
+library(png)
 # load data ----
 
 # path to excel file
@@ -249,7 +249,15 @@ for (i in 1:length(perc_by_income)) {
   )
 }
 
-# colours ----
+# VFSG logo ----
+
+vfsg_png <- readPNG(file.path('WHO_data','vfsg_logo.png'))
+
+vfsg_alpha <- vfsg_png[,,4]
+vfsg_alpha[vfsg_alpha > 0] <- vfsg_alpha[vfsg_alpha > 0] * 0.6
+vfsg_png[,,4] <- vfsg_alpha
+
+# colours ---
 
 clr_pwd <- c('#9429A3')
 clr_not_pwd <- c('grey')
@@ -258,7 +266,7 @@ clr_sex <- c('#C26624', '#188C99')
 clr_age <- c('#7bb3b9','#0072a3','#052879')
 #clr_income <- c('#FFAB0F','#ea5460','#843b7c','#002b54')
 clr_income <- c('#ffab0f', '#e85a3b','#aa1750','#56004D')
-clr_background <- c('grey97')
+clr_background <- c('grey90')
 
 clr_title <- c('#0D0D0D')
 clr_text <- c('#262626')
@@ -267,8 +275,11 @@ clr_text_light <- c('#4D4D4D')
 # plot ---
 plot_width <- 8
 plot_height <- 12
-#if (length(dev.list() > 0)) {dev.off()}
-dev.set(4)
+if (length(dev.list() > 0)) {dev.off()}
+
+# plot window, used for development
+
+#dev.set(4)
 #dev.new(width = plot_width, height = plot_height, unit = 'in', noRStudioGD = TRUE)
 
 point_size <- 0.1
@@ -285,7 +296,7 @@ y_shift_sex <- y_pwd - y_step * 2.25
 y_shift_age <- y_pwd - y_step * 3.25
 y_shift_income <- y_pwd - y_step * 4.25
 y_shift_inequity <- y_pwd - y_step * 4.75
-y_shift_source <- y_pwd - y_step * 5.75
+y_shift_source <- y_pwd - y_step * 6
 
 # settings for label text and lines
 label_lw <- 1
@@ -351,9 +362,9 @@ ggplot() +
         y = y + y_shift_age
       ),
     mapping = aes(
-      x = x, 
-      y = y, 
-      group = group, 
+      x = x,
+      y = y,
+      group = group,
       colour = factor(group + length(label_sex) + 1)),
     linewidth = label_lw,
     alpha = label_alpha
@@ -364,7 +375,7 @@ ggplot() +
     label = label_age,
     vjust = 1, hjust = 1, valign = 1, halign = 1
   ) +
-  
+
   # bar - people with disability, coloured by country income
   geom_point(
     data = income_data |>
@@ -380,9 +391,9 @@ ggplot() +
         y = y + y_shift_income
       ),
     mapping = aes(
-      x = x, 
-      y = y, 
-      group = group, 
+      x = x,
+      y = y,
+      group = group,
       colour = factor(group + length(label_sex) + length(label_age) + 1)),
     linewidth = label_lw,
     alpha = label_alpha
@@ -398,12 +409,14 @@ ggplot() +
   scale_x_continuous(
     limits = c(x_start, x_stop),
     breaks = c(),
-    labels = ''
+    labels = '',
+    expand = c(0, 0)
   ) + 
   scale_y_continuous(
-    limits = c(r_global * -3, y_start) - 100,
+    limits = c(r_global * -4.25, y_start),
     breaks = c(),
-    labels = ''
+    labels = '',
+    expand = c(0, 10)
   ) + 
   
   # remove unnecessary plot elements
@@ -475,60 +488,61 @@ ggplot() +
     lineheight = 2,
     vjust = 1
   ) +
-  
+
   # diversity text
   who_textbox(
-    x = x_start_text, 
+    x = x_start_text,
     y = y_pwd - 35,
-    label = paste0('<span style = "color:', clr_title, '; font-size:16pt;">',
+    label = paste0('<span style = "color:', clr_title, '; font-size:14pt;">',
                    'People with disabilities are diverse:', '</span>'),
     width = 5
   ) +
-  
+
   # sex
   who_textbox(
-    x = x_start_text, 
+    x = x_start_text,
     y = y_shift_sex + pwd_height - 1,
-    label = paste0('<span style = "color:', clr_title, '; font-size:10pt;">',
+    label = paste0('<span style = "color:', clr_title, '; font-size:11pt;">',
                    'They can be<br>any <b>sex</b>', '</span>'),
     width = 5,
     vjust = 1,
     lineheight = 1.3
   ) +
-  
+
   # age
   who_textbox(
-    x = x_start_text, 
+    x = x_start_text,
     y = y_shift_age + pwd_height - 1,
-    label = paste0('<span style = "color:', clr_title, '; font-size:10pt;">',
+    label = paste0('<span style = "color:', clr_title, '; font-size:11pt;">',
                    'They can be<br>any <b>age</b>', '</span>'),
     width = 5,
     vjust = 1,
     lineheight = 1.3
   ) +
-  
+
   # income
   who_textbox(
-    x = x_start_text, 
+    x = x_start_text,
     y = y_shift_income + pwd_height + 3,
-    label = paste0('<span style = "color:', clr_title, '; font-size:10pt;">',
+    label = paste0('<span style = "color:', clr_title, '; font-size:11pt;">',
                    'And they live <br>in <b>countries</b> <br>with different <br><b>income</b> levels', '</span>'),
     width = 5,
     vjust = 1,
     lineheight = 1.3
   ) +
-  
+
   # inequities
   who_textbox(
     x = x_start_text,
     y = y_shift_inequity,
-    label = paste0('<span style = "color:', clr_title, '; font-size:12pt;">',
-                   'These factors all impact the health inequities experienced by people <br>with disabilities.</span>'),
-    width = plot_width * 0.8,
+    label = paste0('<span style = "color:', clr_title, '; font-size:14pt;">',
+                   'These factors all impact the health inequities experienced by people with disabilities.</span>'),
+    width = plot_width * 0.7,
     vjust = 1,
-    lineheight = 1.3
-  ) + 
-  
+    lineheight = 1.5
+  ) +
+
+  # vis and data info
   who_textbox(
     x = x_start_text,
     y = y_shift_source,
@@ -540,7 +554,16 @@ ggplot() +
     ),
     width = plot_width,
     lineheight = 1.3
-  )
+  ) +
   
+  # vfsg_logo
+  annotation_raster(
+    vfsg_png, 
+    ymin = y_shift_source - 1,
+    ymax = y_shift_source + 14,
+    xmin = 87,
+    xmax = 102)
   
+ggsave(file.path('vis','vfsg_who_gms.png'), width = 6.5, height = 6.5*1.75, units = "in", dpi = 600)
+
 

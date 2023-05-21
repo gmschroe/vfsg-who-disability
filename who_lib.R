@@ -178,7 +178,7 @@ who_textbox <- function(
     lineheight = lineheight)
 }
 
-# get label coordinates
+# get bar label coordinates
 get_label_coord <- function(
     group_data,
     label_height
@@ -214,6 +214,7 @@ get_label_coord <- function(
     group = group
   )
 }
+
 # coordinates for packed circles (equal sizes)
 get_circ_data <- function(
     n_circ, # number of circles
