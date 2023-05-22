@@ -253,12 +253,14 @@ for (i in 1:length(perc_by_income)) {
 
 # VFSG logo ---
 
-vfsg_png <- readPNG(file.path('WHO_data','vfsg_logo.png'))
+vfsg_png <- readPNG(file.path('WHO_data','vfsg_logo2.png'))
 
 vfsg_alpha <- vfsg_png[,,4]
 vfsg_alpha[vfsg_alpha > 0] <- vfsg_alpha[vfsg_alpha > 0] * 0.6
 vfsg_png[,,4] <- vfsg_alpha
 
+vfsg_dim <- dim(vfsg_png)
+vfsg_size_ratio <- vfsg_dim[1]/vfsg_dim[2]
 # colours ---
 
 clr_pwd <- c('#852491') #c('#8C2699') #c('#9429A3')
@@ -569,8 +571,8 @@ ggplot() +
     vfsg_png, 
     ymin = y_shift_source - 1,
     ymax = y_shift_source + 14,
-    xmin = 87,
-    xmax = 102) +
+    xmin = 109 - 15/vfsg_size_ratio,
+    xmax = 109) +
   
   # label global population circle
   geom_textcurve(data = tibble(
@@ -601,7 +603,7 @@ ggplot() +
 ggsave(file.path('vis','vfsg_who_gms.png'), 
        width = 6.5, 
        height = 6.5*(y_lim[2] - y_lim[1] + y_buff*2)/(x_lim[2] - x_lim[1] + x_buff*2), 
-       units = "in", dpi = 800)
+       units = "in", dpi = 750)
 
 
 
