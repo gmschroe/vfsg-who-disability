@@ -4,6 +4,8 @@ I made this visualisation for [Viz for Social Good's collaboration with the Worl
 
 # Submission
 
+*Click on the visualisation if you would like to explore a larger version*
+
 <img src = "vis/vfsg_who_gms.png" width="750">
 
 # Anyone can have a disability
@@ -35,3 +37,34 @@ As such, I used the demographic information to answer the question, "What are th
 I also wanted to present this data in a memorable and impactful way. One of my first experiences seeing data visualisation used as a story-telling tool was the [New York Time's article on how race impacts economic mobility](https://www.nytimes.com/interactive/2018/03/19/upshot/race-class-white-and-black-men.html). Rather than just presenting bar charts or a Sankey diagram, the article uses animated points to represent the economic outcomes of individual people. Years later, I still remember that message because the data was connected to individuals. Inspired by that approach, I decided to try capturing the global scale and impact of disabilities by representing every one million people with one small point. Without animations, I don't expect my visualisation to have the same impact as the NY charts, but my hope is that this visualisation will encourage people to sit with the data and mentally grasp the number of people living with disabilities. However, representing the data this way could also lead to accessibility issues if people struggle to perceive the small dots. I aimed to address these issues with other design choices (discussed in the accessibility section below). 
 
 ## Accessibility 
+
+### Data encoding
+
+As I described above, I decided to represent one million people with a small dot. I then coloured these dots based on the people's characteristics - e.g., whether they have disabilities. Since these small elements could be difficult for people with visual impairments to perceive, I ensured that all of the statistics were also encoded by the shapes formed by the dots:
+* While the dots represented by people with disabilities are mixed into the circle that forms the global population, I extract those dots into a second, smaller circle that represents people with disabilities. The relative areas of those two circles encode the percentage of people with disabilities: the people with disabilities circle is approximately 1/6th the size of the global population circle. 
+* The demographic information forms stacked bar charts, with the length of each section encoding the corresponding percentage. This double encoding should help everyone understand the data, as it's much easier to perceive differences in lengths than differences in dot numbers.
+
+### Colour
+
+I avoided using the [most problematic colour combinations for people with colour vision deficiencies](https://blog.datawrapper.de/colorblindness-part1/), but I didn't want to rely on that approach, especially since there are many different types of deficiencies. Therefore, to make my visualisation accessible, I also ensured that (1) neighbouring colours were differentiated by lightness as well as hue, and (2) no data encodings relied on colour alone. For example, each bar chart has vertical lines marking the boundaries between groups. 
+
+To check the impact of my colour choices on accessibility, I used [Adobe's colourblind checker](https://color.adobe.com/create/color-accessibility) and the [Colbis (Color Blindness Simulator)](https://www.color-blindness.com/coblis-color-blindness-simulator/).
+
+### Font, text, and contrast
+
+After researching factors that impact font accessibility, I decided to use [Atkinson Hyperlegible](https://brailleinstitute.org/freefont), a font designed by the Braille Institute for people with low vision. It's also freely available under the Open Font License, which was one of my requirements. Atkinson Hyperlegible uses [extra space and exaggerated letterforms](https://material.io/blog/atkinson-hyperlegible-design) to make it easier to distinguish similar characters. The designed asymmetries also make it easier to distinguish letters that are mirror images of each other, such as p and q (e.g., compare the q in "inequities" vs. the p in "people" in my visualisation). The font was designed to be suitable for general audiences as well, and the distinct letterforms can improve readability for many people. 
+
+All of my text is either dark grey or purple that meets the WCAG 2.1 AAA standards for contrast against the white background (checked using [Adobe's accessibility tools](https://color.adobe.com/create/color-accessibility)). I also checked the contrast of the purple dots against the grey dots in the "global population" circle.
+
+The size of all of the text is 10+ pt when the image width is 6.5+ inches, with the most important messages in larger font sizes. The visualisation can also be viewed at a larger size if desired.
+
+## Other design choices
+
+### Colour significance
+
+During this project, I learned that there are many colours used to represent different types of disability. I chose [purple](https://civilservice.blog.gov.uk/2017/12/06/international-day-of-persons-with-disabilities-turning-the-civil-service-purple/), which is becoming a symbol of disability as a whole.
+
+### Tool
+
+I made this visualisation using the R programming language, both for personal reasons (wanting to practice using the tidyverse/ggplot2 packages) and to have the large amount of control over the plot and text that R provides.
+
