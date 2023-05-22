@@ -601,7 +601,7 @@ ggplot() +
 ggsave(file.path('vis','vfsg_who_gms.png'), 
        width = 6.5, 
        height = 6.5*(y_lim[2] - y_lim[1] + y_buff*2)/(x_lim[2] - x_lim[1] + x_buff*2), 
-       units = "in", dpi = 1000)
+       units = "in", dpi = 800)
 
 
 
