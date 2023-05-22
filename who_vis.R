@@ -453,7 +453,7 @@ ggplot() +
   who_textbox(
       x = x_start_text,
       y = y_start - 3,
-      label = paste0('<b style = "color:', clr_title, '; font-size:30pt;">',
+      label = paste0('<b style = "color:', clr_title, '; font-size:29pt;">',
                      'Anyone can have a disability',
                      '</b>'),
       width = plot_width
