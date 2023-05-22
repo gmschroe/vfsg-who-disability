@@ -36,7 +36,7 @@ I also wanted to present this data in a memorable and impactful way. One of my f
 ### Data encoding
 
 As I described above, I decided to represent one million people with a small dot. I then coloured these dots based on the people's characteristics - e.g., whether they have disabilities. Since these small elements could be difficult for people with visual impairments to perceive, I ensured that all of the statistics were also encoded by the shapes formed by the dots:
-* While the dots represented by people with disabilities are mixed into the circle that forms the global population, I extract those dots into a second, smaller circle that represents people with disabilities. The relative areas of those two circles encode the percentage of people with disabilities: the people with disabilities circle is approximately 1/6th the size of the global population circle. 
+* While the dots represented by people with disabilities are mixed into the circle that forms the global population, I extract those dots into a second, smaller circle that represents people with disabilities. The relative areas of those two circles encode the percentage of people with disabilities: the people with disabilities circle is approximately 1/6th the area of the global population circle. 
 * The demographic information forms stacked bar charts, with the length of each section encoding the corresponding percentage. This double encoding should help everyone understand the data, as it's much easier to perceive differences in lengths than differences in dot numbers.
 
 ### Colour
