@@ -123,7 +123,7 @@ pwd_circ <- get_circ_data(
   n_point_pwd,
   size_seed = 2,
   size_std = 0.1,
-  jitter_seed = 2,
+  jitter_seed = 5,
   jitter_std = jitter_std,
   r = r_pwd
 ) |>
@@ -251,7 +251,7 @@ for (i in 1:length(perc_by_income)) {
   )
 }
 
-# VFSG logo ----
+# VFSG logo ---
 
 vfsg_png <- readPNG(file.path('WHO_data','vfsg_logo.png'))
 
@@ -261,10 +261,10 @@ vfsg_png[,,4] <- vfsg_alpha
 
 # colours ---
 
-clr_pwd <- c('#9429A3')
-clr_not_pwd <- c('grey')
+clr_pwd <- c('#852491') #c('#8C2699') #c('#9429A3')
+clr_not_pwd <- c('#C4C4C4')
 clr_global <- c(clr_not_pwd, clr_pwd)
-clr_sex <- c('#C26624', '#188C99')
+clr_sex <- c('#D15F2B','#138A7E') #'c('#C26624','#188C99')
 clr_age <- c('#7bb3b9','#0072a3','#052879')
 #clr_income <- c('#FFAB0F','#ea5460','#843b7c','#002b54')
 clr_income <- c('#ffab0f', '#e85a3b','#aa1750','#56004D')
@@ -273,7 +273,7 @@ clr_background <- c('white') # c('grey90') # grey for testing (so fig background
 clr_title <- c('#0D0D0D')
 clr_text <- c('#262626')
 clr_text_light <- c('#4D4D4D')
-clr_text_extralight <- c('#666666')
+clr_text_extralight <- c('#595959')
 
 # plot ---
 plot_width <- 8
@@ -453,7 +453,7 @@ ggplot() +
   who_textbox(
       x = x_start_text,
       y = y_start - 3,
-      label = paste0('<b style = "color:', clr_title, '; font-size:28pt;">',
+      label = paste0('<b style = "color:', clr_title, '; font-size:30pt;">',
                      'Anyone can have a disability',
                      '</b>'),
       width = plot_width
@@ -555,7 +555,7 @@ ggplot() +
     x = x_start_text,
     y = y_shift_source,
     label = paste(
-      '<span style = "color:', clr_text_light, ';">',
+      '<span style = "color:', clr_text_light, ' font-size:10pt;">',
       'Visualisation by <b>Gabrielle M. Schroeder</b><br>',
       'Data source: World Health Organisation (2021 global disability data)<br>',
       'Viz for Social Good volunteer project</span>'
@@ -586,10 +586,10 @@ ggplot() +
   
   # label pwd population circle
   geom_textcurve(data = tibble(
-    x =  60, xend = 105, y = y_pwd + 9, yend = y_pwd + 2
+    x =  62+2, xend = 106.5, y = y_pwd + 12.75, yend = y_pwd + 1
   ),
   aes(x, y, xend = xend, yend = yend), 
-  curvature = -0.75, 
+  curvature = -0.73, 
   ncp = 20,
   label = 'all people with disabilities',
   family = 'Atkinson Hyperlegible', 

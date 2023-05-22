@@ -168,7 +168,7 @@ who_textbox <- function(
     mapping = aes(x = x, y = y, label = label),
     family = 'Atkinson Hyperlegible', 
     colour = colour,
-    size = 3.25,
+    size = 3.3,
     inherit.aes = FALSE,
     box.colour = NA, fill = NA,     
     width = unit(width, 'inch'),
