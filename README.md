@@ -3,16 +3,11 @@
 I made this visualisation for [Viz for Social Good's collaboration with the World Health Organisation](https://www.vizforsocialgood.com/join-a-project/who-2023). The WHO provided a dataset on global disabilities; their report on the data is available [here](https://www.who.int/publications/i/item/9789240063600).
 
 # Submission
-
-*Click on the visualisation if you would like to explore a larger version*
-
-<img src = "vis/vfsg_who_gms.png" width="750">
+<img src = "vis/vfsg_who_gms.png" width="750" alt="A visualisation that represents every 1 million people in the world with one dot to show that 1 in 6 people, or 1.3 billion people worldwide, have a significant disability. To show the diversity of people with disabilities, the dots are rearranged into three stacked bar charts that provide sex, age, and country income level demographics.">
 
 # Anyone can have a disability
 
-1 in 6 people have a significant disability.
-
-Worldwide, there are 1.3 billion people living with disabilities.
+The visualisation above represents every 1 million people in the world with one small dot. Approximately 8,000 dots are grouped together in a circle to represent the global population of almost 8 billion people. Approximately 1 in 6 of these dots (around 1,300 dots total) are highlighted to represent the 1.3 billion people living with disabilities worldwide.
 
 People with disabilities are diverse:
 * They can be any sex: 44% are male and 56% are female
@@ -56,7 +51,15 @@ After researching factors that impact font accessibility, I decided to use [Atki
 
 All of my text is either dark grey or purple that meets the WCAG 2.1 AAA standards for contrast against the white background (checked using [Adobe's accessibility tools](https://color.adobe.com/create/color-accessibility)). I also checked the contrast of the purple dots against the grey dots in the "global population" circle.
 
-The size of all of the text is 10+ pt when the image width is 6.5+ inches, with the most important messages in larger font sizes. The visualisation can also be viewed at a larger size if desired.
+The size of all of the text is 10+ pt when the image width is 6.5+ inches, with the most important messages in larger font sizes. The visualisation has a high resolution so that it can be viewed at a larger size if desired.
+
+### Data accessibility
+
+The image has the following alt text: 
+
+*A visualisation that represents every 1 million people in the world with one dot to show that 1 in 6 people, or 1.3 billion people worldwide, have a significant disability. To show the diversity of people with disabilities, the dots are rearranged into three stacked bar charts that provide sex, age, and country income level demographics.*
+
+One downside of using R to make a static visualisation is that, to my knowledge, there isn't a way to allow screen readers to navigate the different chart elements. To make sure the key messages are still accessible, I also provide a text version of the main messages and statistics below the visualisation.
 
 ## Other design choices
 
