@@ -2,6 +2,8 @@
 
 I made this visualisation for [Viz for Social Good's collaboration with the World Health Organisation](https://www.vizforsocialgood.com/join-a-project/who-2023). The WHO provided a dataset on global disabilities; their report on the data is available [here](https://www.who.int/publications/i/item/9789240063600).
 
+License: [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
+
 # Submission
 <img src = "vis/vfsg_who_gms.png" width="750" alt="A visualisation that represents every 1 million people in the world with one dot to show that 1 in 6 people, or 1.3 billion people worldwide, have a significant disability. To show the diversity of people with disabilities, the dots are rearranged into three stacked bar charts that provide sex, age, and country income level demographics.">
 
